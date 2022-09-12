@@ -1,6 +1,7 @@
 {
   "name": "fast-company",
   "version": "0.1.0",
+  "homepage": "https://kva077.github.io/fast-company/",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
