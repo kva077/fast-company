@@ -5,9 +5,7 @@ import api from "../api";
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
   const handleDelete = (userId) => {
-    let usersArr = [...users];
-    usersArr.splice(userId, 1);
-    return setUsers(usersArr);
+    setUsers(users.filter((user) => user._id !== userId));
   };
   const renderPhrase = (number) => {
     let spanText;
@@ -39,25 +37,28 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((obj) => (
+          {users.map((user) => (
             <>
-              <tr key={obj._id}>
-                <td>{obj.name}</td>
+              <tr key={user._id}>
+                <td>{user.name}</td>
                 <td>
-                  {obj.qualities.map((quality) => (
-                    <b className={`badge bg-${quality.color} me-2`}>
-                      {quality.name}
-                    </b>
+                  {user.qualities.map((item) => (
+                    <span
+                      className={"badge m-1 bg-" + item.color}
+                      key={item._id}
+                    >
+                      {item.name}
+                    </span>
                   ))}
                 </td>
-                <td>{obj.profession.name}</td>
-                <td>{obj.completedMeetings}</td>
-                <td>{obj.rate} /5</td>
+                <td>{user.profession.name}</td>
+                <td>{user.completedMeetings}</td>
+                <td>{user.rate} /5</td>
                 <td>
                   <button
                     className="btn bg-danger"
                     onClick={() => {
-                      handleDelete(users.indexOf(obj));
+                      handleDelete(user._id);
                     }}
                   >
                     delete
