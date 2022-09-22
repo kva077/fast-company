@@ -1,27 +1,31 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const SearchStatus = ({ length }) => {
-  const renderPhrase = (length) => {
-    let spanText;
-    let color;
-    if (!length) {
-      color = "danger";
-      spanText = "Никто с тобой не тусанет";
-    } else if (length > 1 && length < 5) {
-      color = "primary";
-      spanText = `${length} человека тусанут с тобой сегодня`;
-    } else {
-      color = "primary";
-      spanText = `${length} человек тусанет с тобой сегодня`;
-    }
-    return (
-      <h2>
-        <span className={`badge bg-${color}`}>{spanText}</span>
-      </h2>
-    );
-  };
+    const renderPhrase = (length) => {
+        let spanText;
+        let color;
+        if (!length) {
+            color = "danger";
+            spanText = "Никто с тобой не тусанет";
+        } else if (length > 1 && length < 5) {
+            color = "primary";
+            spanText = `${length} человека тусанут с тобой сегодня`;
+        } else {
+            color = "primary";
+            spanText = `${length} человек тусанет с тобой сегодня`;
+        }
+        return (
+            <h2>
+                <span className={`badge bg-${color}`}>{spanText}</span>
+            </h2>
+        );
+    };
 
-  return renderPhrase(length);
+    return renderPhrase(length);
+};
+SearchStatus.propTypes = {
+    length: PropTypes.number.isRequired
 };
 
 export default SearchStatus;
