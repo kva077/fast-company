@@ -3,17 +3,17 @@ import Qualitie from "./qualitie";
 import BookMark from "./bookmark";
 import PropTypes from "prop-types";
 
-const User = (props) => {
-    const {
-        _id,
-        name,
-        profession,
-        qualities,
-        completedMeetings,
-        rate,
-        bookmark
-    } = props;
-
+const User = ({
+    _id,
+    name,
+    profession,
+    qualities,
+    completedMeetings,
+    rate,
+    bookmark,
+    onDelete,
+    onBookmarkToggle
+}) => {
     return (
         <>
             <tr key={_id}>
@@ -27,13 +27,18 @@ const User = (props) => {
                 <td>{completedMeetings}</td>
                 <td>{rate} /5</td>
                 <td>
-                    <BookMark status={bookmark} {...props} />
+                    <BookMark
+                        bookmark={bookmark}
+                        onClick={() => {
+                            onBookmarkToggle(_id);
+                        }}
+                    />
                 </td>
                 <td>
                     <button
                         className="btn bg-danger"
                         onClick={() => {
-                            props.onDelete(_id);
+                            onDelete(_id);
                         }}
                     >
                         delete
@@ -47,11 +52,12 @@ User.propTypes = {
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     profession: PropTypes.object.isRequired,
-    qualities: PropTypes.object.isRequired,
+    qualities: PropTypes.array.isRequired,
     completedMeetings: PropTypes.number.isRequired,
     rate: PropTypes.number.isRequired,
     bookmark: PropTypes.bool.isRequired,
-    onDelete: PropTypes.func.isRequired
+    onDelete: PropTypes.func.isRequired,
+    onBookmarkToggle: PropTypes.func.isRequired
 };
 
 export default User;

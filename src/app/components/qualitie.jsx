@@ -9,8 +9,8 @@ const Qualitie = ({ color, name, _id }) => {
 };
 Qualitie.propTypes = {
     color: PropTypes.string.isRequired,
-    name: PropTypes.object.isRequired,
-    _id: PropTypes.object.isRequired
+    name: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired
 };
 
 export default Qualitie;
