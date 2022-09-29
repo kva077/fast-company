@@ -7,11 +7,11 @@ import api from "../api";
 import GroupList from "./grouplist";
 const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [professions] = useState();
+    const [professions, setProfession] = useState();
     const count = allUsers.length;
     const pageSize = 4;
     useEffect(() => {
-        console.log(api);
+        api.professions.fetchAll().then((data) => setProfession(data));
     }, []);
 
     const handleProfessionSelect = (params) => {
