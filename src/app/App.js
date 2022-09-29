@@ -5,28 +5,27 @@ import api from "./api";
 
 function App() {
     const [users, setUsers] = useState(api.users.fetchAll());
-    const [searchStatus, setSearchStatus] = useState(users.length);
-
     const handleDelete = (userId) => {
-        setUsers((prevState) =>
-            prevState.filter((user) => user._id !== userId)
-        );
-        setSearchStatus((prevState) => prevState - 1);
+        setUsers(users.filter((user) => user._id !== userId));
     };
     const handleToggleBookMark = (id) => {
-        const userIndex = users.findIndex((item) => item._id === id);
-        const usersList = [...users];
-        usersList[userIndex].bookmark = !usersList[userIndex].bookmark;
-        setUsers(usersList);
+        setUsers(
+            users.map((user) => {
+                if (user._id === id) {
+                    return { ...user, bookmark: !user.bookmark };
+                }
+                return user;
+            })
+        );
+        console.log(id);
     };
-
     return (
         <div>
-            <SearchStatus length={searchStatus} />
+            <SearchStatus length={users.length} />
             <Users
-                users={users}
-                onToogleBookMark={handleToggleBookMark}
                 onDelete={handleDelete}
+                onToggleBookMark={handleToggleBookMark}
+                users={users}
             />
         </div>
     );
