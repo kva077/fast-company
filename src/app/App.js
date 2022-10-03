@@ -3,7 +3,7 @@ import Users from "./components/users";
 import api from "./api";
 
 function App() {
-    const [users, setUsers] = useState(api.users.fetchAll());
+    const [users, setUsers] = useState([]);
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
