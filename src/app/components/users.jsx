@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import * as _ from "lodash";
 import PropTypes from "prop-types";
 import { paginate } from "../utils/paginate";
 import Pagination from "./pagination";
@@ -8,7 +9,7 @@ import GroupList from "./grouplist";
 import SearchStatus from "./searchStatus";
 const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [professions, setProfession] = useState(api.professions.fetchAll());
+    const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const pageSize = 3;
     useEffect(() => {
@@ -26,11 +27,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         setCurrentPage(pageIndex);
     };
     const filteredUsers = selectedProf
-        ? allUsers.filter(
-              (user) =>
-                  JSON.stringify(user.profession) ===
-                  JSON.stringify(selectedProf)
-          )
+        ? allUsers.filter((user) => _.isEqual(user.profession, selectedProf))
         : allUsers;
     const count = filteredUsers.length;
     const usersCrop = paginate(filteredUsers, currentPage, pageSize);
