@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Search = ({ onSearch }) => {
+const Search = ({ onSearch, searchName }) => {
     return (
         <>
             <div className="input-group mb-3">
@@ -10,6 +10,7 @@ const Search = ({ onSearch }) => {
                     className="form-control"
                     placeholder="Search..."
                     onChange={onSearch}
+                    value={searchName}
                 ></input>
             </div>
         </>
@@ -17,7 +18,8 @@ const Search = ({ onSearch }) => {
 };
 
 Search.propTypes = {
-    onSearch: PropTypes.func.isRequired
+    onSearch: PropTypes.func.isRequired,
+    searchName: PropTypes.string.isRequired
 };
 
 export default Search;

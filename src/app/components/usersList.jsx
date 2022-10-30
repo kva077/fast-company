@@ -44,7 +44,7 @@ const UsersList = () => {
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
         setSearchName("");
-        /* Когда меняю профессию - обнуляю поиск по имени (не очищая строку поиска)  */
+        /* Когда меняю профессию - обнуляю поиск по имени */
     };
 
     const handlePageChange = (pageIndex) => {
@@ -66,7 +66,6 @@ const UsersList = () => {
         const filteredUsers = selectedProf
             ? users.filter((user) => _.isEqual(user.profession, selectedProf))
             : users;
-        const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
             [sortBy.path],
@@ -77,6 +76,7 @@ const UsersList = () => {
             return user.name.toLowerCase().includes(searchName.toLowerCase());
         });
         // Получил массив искомых пользователей по строке поиска
+        const count = searchedUsers.length;
 
         const usersCrop = paginate(searchedUsers, currentPage, pageSize);
         const clearFilter = () => {
@@ -106,7 +106,10 @@ const UsersList = () => {
 
                     <div className="d-flex flex-column">
                         <SearchStatus length={count} />
-                        <Search onSearch={handleSearch} />
+                        <Search
+                            onSearch={handleSearch}
+                            searchName={searchName}
+                        />
                         {count > 0 && (
                             <UserTable
                                 users={usersCrop}
