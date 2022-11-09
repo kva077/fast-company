@@ -18,6 +18,10 @@ module.exports = {
             "error",
             { anonymous: "always", named: "never" }
         ],
-        quotes: ["error", "double", { allowTemplateLiterals: true }]
+        quotes: ["error", "double", { allowTemplateLiterals: true }],
+
+        // Disables the rule. You can just remove it,
+        // if it is not enabled by a parent config.
+        "object-shorthand": 0
     }
 };

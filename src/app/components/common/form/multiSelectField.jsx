@@ -12,7 +12,7 @@ const MultiSelectField = ({ options, onChange, name, defaultValue, label }) => {
             : options;
 
     const handleChange = (value) => {
-        onChange({ name: name, value });
+        onChange({ name, value });
     };
     return (
         <div className="mb-4">
