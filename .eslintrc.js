@@ -12,7 +12,7 @@ module.exports = {
     plugins: ["react"],
     rules: {
         indent: "off",
-        "multiline-ternary": "off",
+        "multiline-ternary": ["off"],
         semi: [2, "always"],
         "space-before-function-paren": [
             "error",
