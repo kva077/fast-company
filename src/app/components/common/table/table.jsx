@@ -22,4 +22,5 @@ Table.propTypes = {
     data: PropTypes.array,
     children: PropTypes.array
 };
+
 export default Table;

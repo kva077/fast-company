@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { validator } from "../../utils/validator.js";
+import React, { useEffect, useState } from "react";
+import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
-import CheckBoxField from "../common/form/checkBoxField.jsx";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const LoginForm = () => {
     const [data, setData] = useState({
@@ -16,7 +16,6 @@ const LoginForm = () => {
             [target.name]: target.value
         }));
     };
-
     const validatorConfig = {
         email: {
             isRequired: {
@@ -27,7 +26,9 @@ const LoginForm = () => {
             }
         },
         password: {
-            isRequired: { message: "Пароль обязателен для заполнения" },
+            isRequired: {
+                message: "Пароль обязателен для заполнения"
+            },
             isCapitalSymbol: {
                 message: "Пароль должен содержать хотя бы одну заглавную букву"
             },
@@ -35,12 +36,11 @@ const LoginForm = () => {
                 message: "Пароль должен содержать хотя бы одно число"
             },
             min: {
-                message: "Пароль должен составлять минимум из 8 символов",
+                message: "Пароль должен состоять минимум из 8 символов",
                 value: 8
             }
         }
     };
-
     useEffect(() => {
         validate();
     }, [data]);
@@ -50,6 +50,7 @@ const LoginForm = () => {
         return Object.keys(errors).length === 0;
     };
     const isValid = Object.keys(errors).length === 0;
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
@@ -59,14 +60,14 @@ const LoginForm = () => {
     return (
         <form onSubmit={handleSubmit}>
             <TextField
-                label="Электронная почта:"
+                label="Электронная почта"
                 name="email"
                 value={data.email}
                 onChange={handleChange}
                 error={errors.email}
             />
             <TextField
-                label="Пароль:"
+                label="Пароль"
                 type="password"
                 name="password"
                 value={data.password}
