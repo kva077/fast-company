@@ -24,7 +24,8 @@ module.exports = {
             "error",
             "double",
             {
-                allowTemplateLiterals: true
+                allowTemplateLiterals: true,
+                awoidEscape: true
             }
         ]
     }

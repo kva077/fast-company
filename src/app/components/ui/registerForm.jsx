@@ -17,6 +17,7 @@ const RegisterForm = () => {
         password: "",
         profession: "",
         sex: "male",
+        name: "",
         qualities: [],
         licence: false
     });
@@ -31,6 +32,8 @@ const RegisterForm = () => {
         label: p.name,
         value: p._id
     }));
+    console.log(professionsList);
+    console.log(qualitiesList);
     const [errors, setErrors] = useState({});
 
     const getProfessionById = (id) => {
@@ -69,6 +72,15 @@ const RegisterForm = () => {
             },
             isEmail: {
                 message: "Email введен некорректно"
+            }
+        },
+        name: {
+            isRequired: {
+                message: "Имя обязательно для заполнения"
+            },
+            min: {
+                message: "Имя должно состоять минимум из 2 символов",
+                value: 2
             }
         },
         password: {
@@ -133,6 +145,13 @@ const RegisterForm = () => {
                 value={data.email}
                 onChange={handleChange}
                 error={errors.email}
+            />
+            <TextField
+                label="Имя"
+                name="name"
+                value={data.name}
+                onChange={handleChange}
+                error={errors.name}
             />
             <TextField
                 label="Пароль"
