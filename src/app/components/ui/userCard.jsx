@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-
 const UserCard = ({ user }) => {
     const history = useHistory();
     const { currentUser } = useAuth();
@@ -20,6 +19,7 @@ const UserCard = ({ user }) => {
                         <i className="bi bi-gear"></i>
                     </button>
                 )}
+
                 <div className="d-flex flex-column align-items-center text-center position-relative">
                     <img
                         src={user.image}

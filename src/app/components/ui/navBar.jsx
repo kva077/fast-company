@@ -16,7 +16,7 @@ const NavBar = () => {
                     {currentUser && (
                         <li className="nav-item">
                             <Link
-                                className="nav-link"
+                                className="nav-link "
                                 aria-current="page"
                                 to="/users"
                             >
@@ -25,12 +25,12 @@ const NavBar = () => {
                         </li>
                     )}
                 </ul>
-                <div className="d-flex nav">
+                <div className="d-flex">
                     {currentUser ? (
                         <NavProfile />
                     ) : (
                         <Link
-                            className="nav-link"
+                            className="nav-link "
                             aria-current="page"
                             to="/login"
                         >

@@ -1,9 +1,8 @@
 import React from "react";
-import { Redirect, Route } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-
-const ProtectedRoute = ({ component: Component, children, ...rest }) => {
+import { useAuth } from "../../hooks/useAuth";
+function ProtectedRoute({ component: Component, children, ...rest }) {
     const { currentUser } = useAuth();
     return (
         <Route
@@ -25,11 +24,10 @@ const ProtectedRoute = ({ component: Component, children, ...rest }) => {
             }}
         />
     );
-};
-
+}
 ProtectedRoute.propTypes = {
     component: PropTypes.func,
-    locaion: PropTypes.object,
+    location: PropTypes.object,
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node

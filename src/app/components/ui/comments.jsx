@@ -4,13 +4,13 @@ import CommentsList, { AddCommentForm } from "../common/comments";
 import { useComments } from "../../hooks/useComments";
 
 const Comments = () => {
-    const { comments, createComment, removeComment } = useComments();
+    const { createComment, comments, removeComment } = useComments();
 
     const handleSubmit = (data) => {
         createComment(data);
-        //     api.comments
-        //         .add({ ...data, pageId: userId })
-        //         .then((data) => setComments([...comments, data]));
+        // api.comments
+        //     .add({ ...data, pageId: userId })
+        //     .then((data) => setComments([...comments, data]));
     };
     const handleRemoveComment = (id) => {
         removeComment(id);
@@ -22,6 +22,7 @@ const Comments = () => {
     return (
         <>
             <div className="card mb-2">
+                {" "}
                 <div className="card-body ">
                     <AddCommentForm onSubmit={handleSubmit} />
                 </div>

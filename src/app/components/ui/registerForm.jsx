@@ -5,10 +5,11 @@ import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useProfessions } from "../../hooks/useProfession";
-import { useQualities } from "../../hooks/useQualities";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
+import { getQualities } from "../../store/qualities";
+import { useSelector } from "react-redux";
+import { getProfessions } from "../../store/professions";
 
 const RegisterForm = () => {
     const history = useHistory();
@@ -22,42 +23,17 @@ const RegisterForm = () => {
         licence: false
     });
     const { signUp } = useAuth();
-    const { qualities } = useQualities();
+    const qualities = useSelector(getQualities());
     const qualitiesList = qualities.map((q) => ({
         label: q.name,
         value: q._id
     }));
-    const { professions } = useProfessions();
+    const professions = useSelector(getProfessions());
     const professionsList = professions.map((p) => ({
         label: p.name,
         value: p._id
     }));
-    console.log(professionsList);
-    console.log(qualitiesList);
     const [errors, setErrors] = useState({});
-
-    const getProfessionById = (id) => {
-        for (const prof of professions) {
-            if (prof.value === id) {
-                return { _id: prof.value, name: prof.label };
-            }
-        }
-    };
-    const getQualities = (elements) => {
-        const qualitiesArray = [];
-        for (const elem of elements) {
-            for (const quality in qualities) {
-                if (elem.value === qualities[quality].value) {
-                    qualitiesArray.push({
-                        _id: qualities[quality].value,
-                        name: qualities[quality].label,
-                        color: qualities[quality].color
-                    });
-                }
-            }
-        }
-        return qualitiesArray;
-    };
 
     const handleChange = (target) => {
         setData((prevState) => ({
@@ -79,8 +55,8 @@ const RegisterForm = () => {
                 message: "Имя обязательно для заполнения"
             },
             min: {
-                message: "Имя должно состоять минимум из 2 символов",
-                value: 2
+                message: "Имя должно состоять минимум из 3 символов",
+                value: 3
             }
         },
         password: {
@@ -128,7 +104,7 @@ const RegisterForm = () => {
             ...data,
             qualities: data.qualities.map((q) => q.value)
         };
-        console.log("newdata", newData);
+
         try {
             await signUp(newData);
             history.push("/");
@@ -164,8 +140,8 @@ const RegisterForm = () => {
             <SelectField
                 label="Выбери свою профессию"
                 defaultOption="Choose..."
-                name="profession"
                 options={professionsList}
+                name="profession"
                 onChange={handleChange}
                 value={data.profession}
                 error={errors.profession}
@@ -184,6 +160,7 @@ const RegisterForm = () => {
             <MultiSelectField
                 options={qualitiesList}
                 onChange={handleChange}
+                defaultValue={data.qualities}
                 name="qualities"
                 label="Выберите ваши качества"
             />

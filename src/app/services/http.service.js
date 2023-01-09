@@ -21,10 +21,11 @@ http.interceptors.request.use(
                     grant_type: "refresh_token",
                     refresh_token: refreshToken
                 });
+
                 localStorageService.setTokens({
                     refreshToken: data.refresh_token,
                     idToken: data.id_token,
-                    expiresIn: data.expires_in,
+                    expiresIn: data.expires_id,
                     localId: data.user_id
                 });
             }
@@ -68,9 +69,9 @@ http.interceptors.response.use(
 );
 const httpService = {
     get: http.get,
-    patch: http.patch,
     post: http.post,
     put: http.put,
-    delete: http.delete
+    delete: http.delete,
+    patch: http.patch
 };
 export default httpService;

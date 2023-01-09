@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-
-const NavProfile = () => {
+function NavProfile() {
     const { currentUser } = useAuth();
-    const [open, setOpen] = useState(false);
+    const [isOpen, setOpen] = useState(false);
     const toggleMenu = () => {
         setOpen((prevState) => !prevState);
     };
@@ -19,7 +18,7 @@ const NavProfile = () => {
                     className="img-responsive rounded-circle"
                 />
             </div>
-            <div className={"w-100 dropdown-menu" + (open ? " show" : "")}>
+            <div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
                 <Link
                     to={`/users/${currentUser._id}`}
                     className="dropdown-item"
@@ -32,6 +31,6 @@ const NavProfile = () => {
             </div>
         </div>
     );
-};
+}
 
 export default NavProfile;

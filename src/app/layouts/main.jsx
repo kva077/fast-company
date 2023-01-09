@@ -16,7 +16,6 @@ const Main = () => {
                 {error && <li>Error: {error}</li>}
             </ul>
             <button className="btn btn-primary" onClick={handleClick}>
-                {" "}
                 Инициализировать
             </button>
         </div>

@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 import axios from "axios";
 import userService from "../services/user.service";
-import { toast } from "react-toastify";
 import localStorageService, {
     setTokens
 } from "../services/localStorage.service";
@@ -26,11 +26,7 @@ const AuthProvider = ({ children }) => {
     const [isLoading, setLoading] = useState(true);
     const history = useHistory();
 
-    function randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    async function signIn({ email, password }) {
+    async function logIn({ email, password }) {
         try {
             const { data } = await httpAuth.post(
                 `accounts:signInWithPassword`,
@@ -45,19 +41,34 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
+            console.log(code, message);
             if (code === 400) {
                 switch (message) {
                     case "INVALID_PASSWORD":
-                        throw new Error("Пароль введен неверно");
-                    case "EMAIL_NOT_FOUND":
-                        throw new Error("Email введен неверно");
+                        throw new Error("Email или пароль введены некорректно");
 
                     default:
                         throw new Error(
-                            "Слишком много попыток входа, попробуйте позднее"
+                            "Слишком много попыток входа. Попробуйте позже"
                         );
                 }
             }
+        }
+    }
+    function logOut() {
+        localStorageService.removeAuthData();
+        setUser(null);
+        history.push("/");
+    }
+    function randomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    async function updateUserData(data) {
+        try {
+            const { content } = await userService.update(data);
+            setUser(content);
+        } catch (error) {
+            errorCatcher(error);
         }
     }
     async function signUp({ email, password, ...rest }) {
@@ -94,13 +105,6 @@ const AuthProvider = ({ children }) => {
             }
         }
     }
-
-    function logOut() {
-        localStorageService.removeAuthData();
-        setUser(null);
-        history.push("/");
-    }
-
     async function createUser(data) {
         try {
             const { content } = await userService.create(data);
@@ -124,17 +128,6 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
         }
     }
-    async function updateUserData(editedUser) {
-        try {
-            const newUser = { ...currentUser, ...editedUser };
-            console.log("отправляем", newUser);
-            const { content } = await userService.update(newUser);
-            console.log(content);
-            setUser(content);
-        } catch (error) {
-            errorCatcher(error);
-        }
-    }
     useEffect(() => {
         if (localStorageService.getAccessToken()) {
             getUserData();
@@ -150,7 +143,7 @@ const AuthProvider = ({ children }) => {
     }, [error]);
     return (
         <AuthContext.Provider
-            value={{ signUp, signIn, currentUser, logOut, updateUserData }}
+            value={{ signUp, logIn, currentUser, logOut, updateUserData }}
         >
             {!isLoading ? children : "Loading..."}
         </AuthContext.Provider>

@@ -19,12 +19,11 @@ const userService = {
         const { data } = await httpService.get(
             userEndpoint + localStorageService.getUserId()
         );
-        console.log("data:", data);
         return data;
     },
     update: async (payload) => {
         const { data } = await httpService.patch(
-            userEndpoint + payload._id,
+            userEndpoint + localStorageService.getUserId(),
             payload
         );
         return data;
