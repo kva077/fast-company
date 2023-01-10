@@ -11,6 +11,7 @@
         "axios": "^1.2.0",
         "bootstrap": "^5.2.1",
         "bootstrap-icons": "^1.9.1",
+        "history": "^4.9.0",
         "lodash": "^4.17.15",
         "nanoid": "^4.0.0",
         "prop-types": "^15.8.1",
