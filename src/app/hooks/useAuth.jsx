@@ -41,7 +41,6 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
-            console.log(code, message);
             if (code === 400) {
                 switch (message) {
                     case "INVALID_PASSWORD":
@@ -94,7 +93,6 @@ const AuthProvider = ({ children }) => {
         } catch (error) {
             errorCatcher(error);
             const { code, message } = error.response.data.error;
-            console.log(code, message);
             if (code === 400) {
                 if (message === "EMAIL_EXISTS") {
                     const errorObject = {
@@ -108,7 +106,6 @@ const AuthProvider = ({ children }) => {
     async function createUser(data) {
         try {
             const { content } = await userService.create(data);
-            console.log(content);
             setUser(content);
         } catch (error) {
             errorCatcher(error);
